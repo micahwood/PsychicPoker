@@ -1,17 +1,17 @@
 <?php
 
-require_once('Card.php');
+require_once('Deck.php');
 
-$value = 'A23456789TJQK';
-$suit = 'CDHS';
+$deck = new Deck;
 
-$deck = array();
-for ($i = 0; $i < 52; $i++) {
-	$v = substr($value, $i % 13, 1);
-	$s = substr($suit, $i % 4, 1);
-	$c = new Card($v, $s);
-	array_push($deck, $c);
+$deck->shuffle();
+
+$deck->printString();
+
+$hand = $deck->deal();
+echo "\nHAND:";
+foreach ($hand as $card) {
+	echo $card->printString() . ' ';
 }
-foreach ($deck as $card) {
-	echo $card->get_card() . " ";
-}
+echo "\nAfter deal";
+$deck->printString();

@@ -19,7 +19,7 @@ class CardTest extends PHPUnit_Framework_TestCase {
 	}
 	// Test the return format of get_card
 	public function testCardDisplaysValueAndSuit() {
-		$this->assertRegExp('/^KC$/', $this->card->get_card(),  
-			'get_card does not display the correct card code');
+		$this->assertSame('KC', $this->card->printString(),  
+			'printString does not display the correct card code');
 	}
 }

@@ -25,20 +25,22 @@ class Card {
 	}
 
 	/**
-	 * Getters
-	 */
-
-	/**
 	 * Returns the two character code for the card
 	 * @return string
 	 */ 
-	public function get_card() {
+	public function printString() {
 		return $this->value . $this->suit;
 	}
-	public function get_value() {
+
+
+	/**
+	 * Getters
+	 */
+
+	public function getValue() {
 		return $this->value;
 	}
-	public function get_suit() {
+	public function getSuit() {
 		return $this->suit;
 	}
 }
