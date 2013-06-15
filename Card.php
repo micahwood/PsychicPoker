@@ -28,7 +28,7 @@ class Card {
 	 * Returns the two character code for the card
 	 * @return string
 	 */ 
-	public function printString() {
+	public function __toString() {
 		return $this->value . $this->suit;
 	}
 

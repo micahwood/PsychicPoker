@@ -3,6 +3,9 @@
 require_once('Card.php');
 
 class Deck {
+
+	const DECK_SIZE = 52;
+	const HAND_SIZE = 5;
 	/**
 	 * An array of 52 Cards
 	 * @var Card
@@ -19,7 +22,7 @@ class Deck {
 		$suits = 'CDHS';
 		$this->cards = array();
 
-		for($i = 0; $i < 52; $i++) {
+		for($i = 0; $i < self::DECK_SIZE; $i++) {
 			// Use the value and suit strings to create one of each possible card
 			$v = substr($values, $i % 13, 1);
 			$s = substr($suits, $i % 4, 1);
@@ -33,16 +36,26 @@ class Deck {
 	}
 
 	public function deal() {
-		return array_splice($this->cards, 0, 5);
+		return array_splice($this->cards, 0, self::HAND_SIZE);
 	}
 
-	public function printString() {
+	/**
+	 * Returns an array of the top 5 cards in the deck without removing them
+	 * @return Card[]
+	 */
+	public function psychicPeek() {
+		return array_slice($this->cards, 0, self::HAND_SIZE);
+	}
+
+	public function __toString() {
+		$ret = "";
 		for ($i=0; $i < $this->getCount(); $i++) { 
 			if ($i % 10 === 0) {
-				echo "\n";
+				$ret .=" \n\r";
 			}
-			echo $this->cards[$i]->printString() . ' ';
+			$ret .= $this->cards[$i] . " ";
 		}
+		return $ret;
 	}
 
 	/**
@@ -57,7 +70,4 @@ class Deck {
 		return $this->cards;
 	}
 
-	public function psychicPeek() {
-		return array_slice($this->cards, 0, 5);
-	}
 }

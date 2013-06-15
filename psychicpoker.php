@@ -6,12 +6,12 @@ $deck = new Deck;
 
 $deck->shuffle();
 
-$deck->printString();
+echo $deck;
 
 $hand = $deck->deal();
-echo "\nHAND:";
+echo "\n\rHAND:";
 foreach ($hand as $card) {
-	echo $card->printString() . ' ';
+	echo $card . ' ';
 }
-echo "\nAfter deal";
-$deck->printString();
+echo "\n\rAfter deal";
+echo $deck;

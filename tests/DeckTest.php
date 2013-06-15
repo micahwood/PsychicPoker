@@ -12,6 +12,18 @@ class DeckTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(52, $this->deck->getCount(), 
 			'The initial deck is less than 52 cards');
 	}
+
+	public function testDeckHasNoDuplicates() {
+		$this->assertTrue(
+			$this->deck->getCount() === count(array_unique($this->deck->getCards())), 
+			'Deck contains duplicate cards');
+	}
+
+	public function testDeckOnlyContainsCards() {
+		$this->assertContainsOnly('card', $this->deck->getCards(), false, 
+			'The deck does not just contain cards');
+	}
+
 	// Test that deal() returns an array of 5 cards
 	public function testDealReturns5Cards() {
 		$hand = $this->deck->deal();
@@ -22,11 +34,6 @@ class DeckTest extends PHPUnit_Framework_TestCase {
 		$this->deck->deal();
 		$this->assertEquals(47, $this->deck->getCount(), 
 			'Deal did not remove 5 cards from the deck');
-	}
-
-	public function testDeckOnlyContainsCards() {
-		$this->assertContainsOnly('card', $this->deck->getCards(), false, 
-			'The deck does not just contain cards');
 	}
 
 	public function testPsychicPeekDoesNotModifyLength() {
