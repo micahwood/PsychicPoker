@@ -16,4 +16,8 @@ class CardTest extends PHPUnit_Framework_TestCase {
 		$this->assertClassHasAttribute('suit', 'card', 'Card class does not contain suit');
 	}
 	
+	public function testCardDisplaysValueAndSuit() {
+		$this->assertRegExp('/^KC$/', $this->card->get_card(),  
+			'get_card does not display the correct card code');
+	}
 }
