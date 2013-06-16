@@ -37,9 +37,31 @@ class Card {
 	 * Getters
 	 */
 
+	/**
+	 * Return the numerical value of the card
+	 * @return int
+	 */
 	public function getValue() {
-		return $this->value;
+		switch ($this->value) {
+
+			case 'T':
+				return 10;
+			case 'J':	
+				return 11;
+			case 'Q':
+				return 12;
+			case 'K':
+				return 13;
+			case 'A':
+				return 14;
+			default:
+				return $this->value;
+		}
 	}
+	/**
+	 * Return the character for the card's suit
+	 * @return char
+	 */
 	public function getSuit() {
 		return $this->suit;
 	}

@@ -4,17 +4,20 @@ require_once('Card.php');
 
 class Deck {
 
+	/**
+	 * Class constants
+	 */
 	const DECK_SIZE = 52;
 	const HAND_SIZE = 5;
 	/**
-	 * An array of 52 Cards
+	 * An array of DECK_SIZE Cards
 	 * @var Card
 	 */
 	private $cards;
 
 	/**
 	 * Constructor
-	 * Fills the deck with 52 cards
+	 * Fills the $cards array with DECK_SIZE cards
 	 */
 	public function __construct() {
 		// A string of all of the possible values and suits
@@ -35,12 +38,16 @@ class Deck {
 		shuffle($this->cards);
 	}
 
+	/**
+	 * Returns an array of the top HAND_SIZE cards, removing them from the deck
+	 * @return Card[]
+	 */
 	public function deal() {
 		return array_splice($this->cards, 0, self::HAND_SIZE);
 	}
 
 	/**
-	 * Returns an array of the top 5 cards in the deck without removing them
+	 * Returns an array of the top HAND_SIZE cards in the deck without removing them
 	 * @return Card[]
 	 */
 	public function psychicPeek() {
@@ -50,7 +57,7 @@ class Deck {
 	public function __toString() {
 		$ret = "";
 		for ($i=0; $i < $this->getCount(); $i++) { 
-			if ($i % 10 === 0) {
+			if ($i % 10 === 0 && $i !== 0) {
 				$ret .=" \n\r";
 			}
 			$ret .= $this->cards[$i] . " ";
