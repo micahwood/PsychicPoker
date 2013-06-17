@@ -111,10 +111,20 @@ class Game {
 		// copy original array to not mutate it and sort the copy
 		$sorted = $values;
 		rsort($sorted);
+		//check that there are 5 unique values
+		$size = count(array_count_values($sorted));
 		// if there is a straight the difference between 
-		// the first and last cards will be -1
+		// the first and last cards will be 4
 		$last = array_slice($sorted, -1);
-		return $sorted[0] - $last[0] === 4;
+		$diff = $sorted[0] - $last[0];
+		// an ace-low straight would give a difference of 12
+		if ($diff === 12 && $sorted[0] === 14) {
+			//treat ace as a 1
+			$sorted[0] = 1;
+			//check again
+			return self::straight($sorted);
+		}
+		return $diff === 4 && $size === 5;
 	}
 	/**
 	 * Count all of the suits in the hand

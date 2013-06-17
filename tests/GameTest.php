@@ -21,7 +21,7 @@ class GameTest extends PHPUnit_Framework_TestCase {
 			'bestHand did not find three of a kind');
 	}
 	public function testStraight() {
-		$hand = array(9, 5, 6, 8, 7);
+		$hand = array(14,2,3,4,5);
 		$this->assertTrue(Game::straight($hand), 'Failed to find a straight');
 	}
 	public function testFlush() {
