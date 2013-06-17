@@ -105,7 +105,14 @@ class Game {
 	}
 
 	public static function twoPair($values) {
-		return false;
+		$pairs = 0;
+		$counts = array_count_values($values);
+		foreach ($counts as $count) {
+			if ($count == 2) {
+				$pairs++;
+			}
+		}
+		return $pairs === 2;
 	}
 	public static function straight($values) {
 		// copy original array to not mutate it and sort the copy

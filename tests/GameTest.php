@@ -30,6 +30,12 @@ class GameTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('flush', Game::bestHand($hand, $topOfDeck), 
 			'bestHand did not find a flush');
 	}
+	public function testTwoPair() {
+		$hand = self::makeHand('AH 2C 9S AD 3C');
+		$topOfDeck = self::makeHand('QH KS JS JD KD');
+		$this->assertEquals('two-pairs', Game::bestHand($hand, $topOfDeck), 
+			'bestHand did not find two-pair');
+	}
 	public function testFullHouse() {
 		$hand = self::makeHand('2H 2S 3H 3S 3C');
 		$topOfDeck = self::makeHand('2D 9C 3D 6C TH');
