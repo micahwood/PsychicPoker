@@ -45,9 +45,11 @@ class Game {
 			if ($testTotal > $highestHand) {
 				$highestHand = $testTotal;
 			}
-			if ($highestHand >= $bestTotal) {
-				break; //We confirmed it is possible to make the best possible hand
-			}
+			// Looks like straights do not play nice when handling all 10 cards so 
+			// it is bailing out once high-card == high-card
+			//if ($highestHand >= $bestTotal) {
+				//break; //We confirmed it is possible to make the best possible hand
+			//}
 		} // next possible hand
 
 		return self::$allHands[$highestHand];

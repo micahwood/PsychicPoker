@@ -18,12 +18,27 @@ class Deck {
 	/**
 	 * Constructor
 	 * Fills the $cards array with DECK_SIZE cards
+	 * Alternatively if you pass a string it will construct a deck from that
 	 */
 	public function __construct() {
+		$this->cards = array();
+		//overloading constructor to allow passing a string for a given deck
+		if (func_num_args() == 1) {
+			$givenDeck = func_get_arg(0);
+			if (gettype($givenDeck) !== 'string') {
+				return null;
+			}
+			$givenDeck = explode(' ', $givenDeck);
+			foreach ($givenDeck as $card) {
+				$v = substr($card, 0, 1);
+				$s = substr($card, 1, 1);
+				array_push($this->cards, new Card($v, $s));
+			}
+			return; //Don't add 52 more cards to the deck please...
+		}
 		// A string of all of the possible values and suits
 		$values = 'A23456789TJQK';
 		$suits = 'CDHS';
-		$this->cards = array();
 
 		for($i = 0; $i < self::DECK_SIZE; $i++) {
 			// Use the value and suit strings to create one of each possible card
