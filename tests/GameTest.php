@@ -37,6 +37,7 @@ class GameTest extends PHPUnit_Framework_TestCase {
 			'bestHand did not notice a full house');
 	}
 
+	// helper function for creating test hands more easily
 	private function makeHand($strHand) {
 		$ret = array();
 		$arrHand = explode(' ', $strHand);
