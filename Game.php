@@ -34,6 +34,7 @@ class Game {
 		foreach (self::$allCombinations as $combo) {
 			$testHand = array();
 			//add cards from deck if needed
+			// TODO: should be done while filling the $allCombinations array 
 			if (count($combo) < 5) {
 				$combo = self::drawCard($combo);
 			}
