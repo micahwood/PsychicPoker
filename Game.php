@@ -6,7 +6,7 @@ class Game {
 	 * An array of all the return values for a given hand
 	 * @var string
 	 */
-	private static $allHands = array('highest-card', 'one-pair', 'two-pairs', 'three-of-a-kind', 
+	private static $allHands = array('highest-card', 'one-pair', 'two-pairs', 'three-of-a-kind',
 		'straight', 'flush', 'full-house', 'four-of-a-kind', 'straight-flush');
 
 	/**
@@ -25,7 +25,7 @@ class Game {
 		//merge the $hand and $topOfDeck arrays to find the best possible hand
 		// of all 10 cards
 		$handAndDeck = array_merge($hand, $topOfDeck);
-		// use best total to break out of loop early if the highest possible 
+		// use best total to break out of loop early if the highest possible
 		// hand matches
 		$bestTotal = self::getHandValue($handAndDeck);
 		$highestHand = 0;
@@ -34,7 +34,7 @@ class Game {
 		foreach (self::$allCombinations as $combo) {
 			$testHand = array();
 			//add cards from deck if needed
-			// TODO: should be done while filling the $allCombinations array 
+			// TODO: should be done while filling the $allCombinations array
 			if (count($combo) < 5) {
 				$combo = self::drawCard($combo);
 			}
@@ -46,7 +46,7 @@ class Game {
 			if ($testTotal > $highestHand) {
 				$highestHand = $testTotal;
 			}
-			// Looks like straights do not play nice when handling all 10 cards so 
+			// Looks like straights do not play nice when handling all 10 cards so
 			// it is bailing out once high-card == high-card
 			//if ($highestHand >= $bestTotal) {
 				//break; //We confirmed it is possible to make the best possible hand
@@ -56,9 +56,9 @@ class Game {
 		return self::$allHands[$highestHand];
 	}
 	public static function getHandValue($hand) {
-		
-		
-		// create an array of the values and suits of all cards. 
+
+
+		// create an array of the values and suits of all cards.
 		// Values used for finding straights, full house, pairs and high card
 		// Suits for finding flushes
 		$cardValues = array();
@@ -76,7 +76,7 @@ class Game {
 		}
 		else if (self::kind(3, $cardValues) && self::kind(2, $cardValues)) {
 			return 6; //full-house
-		} 
+		}
 		else if (self::flush($cardSuits)) {
 			return 5; //flush
 		}
@@ -123,7 +123,7 @@ class Game {
 		rsort($sorted);
 		//check that there are 5 unique values
 		$size = count(array_count_values($sorted));
-		// if there is a straight the difference between 
+		// if there is a straight the difference between
 		// the first and last cards will be 4
 		$last = array_slice($sorted, -1);
 		$diff = $sorted[0] - $last[0];
@@ -161,32 +161,26 @@ class Game {
 		}
 		// allCombinations is an array of all of the possible combinations
 		// of 5 cards - $allCombinations[hand][cards]
-		self::$allCombinations = array(array());
-		$base = array();
-		//create an array of size $size - this will be used to build the set of
-		//all possible indexes for that size of an array
-		for ($i=0; $i < $size; $i++) { 
-			array_push($base, $i);
-		}
-		for ($i=0; $i < count($base); $i++) { 
-			//length will change on each iteration
-			$len = count(self::$allCombinations);
-			for ($j=0; $j < $len; $j++) { 
-				//combine the current element in base with all possible subsets
-				//and save it to the allCombinations array
-				array_push(self::$allCombinations, 
-					array_merge(self::$allCombinations[$j], array($base[$i])));
+		self::$allCombinations = [];
+		for ($i=0; $i < (1 << $size); $i++) {
+			$base = [];
+			for ($j = 0; $j < $size; $j++) {
+				if ($i & (1 << $j)) {
+					array_push($base, $j);
+				}
 			}
-
+			//combine the current element in base with all possible subsets
+			//and save it to the allCombinations array
+			array_push(self::$allCombinations, $base);
 		}
 	}
 
 	private static function drawCard($hand) {
-    	$deck = array(5,6,7,8,9);
-    	$size = 5 - count($hand);
-    	if ($size > 5) return null;
-    	$draw = array_splice($deck, 0, $size);
-    	$res = array_merge($hand, $draw);
-        return $res;
+		$deck = array(5,6,7,8,9);
+		$size = 5 - count($hand);
+		if ($size > 5) return null;
+		$draw = array_splice($deck, 0, $size);
+		$res = array_merge($hand, $draw);
+		return $res;
 	}
 }
